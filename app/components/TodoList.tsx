@@ -1,6 +1,11 @@
+import { ITask } from "@/types/tasks"
+import React from "react"
 
+interface TodoListProps{
+    tasks:ITask[]
+}
 
-function TodoList() {
+const TodoList: React.FC<TodoListProps> = ({tasks}) =>{
   return (
     <div>
         <div className="overflow-x-auto">
@@ -8,34 +13,18 @@ function TodoList() {
     {/* head */}
     <thead>
       <tr>
-        <th></th>
-        <th>Name</th>
-        <th>Job</th>
-        <th>Favorite Color</th>
+        <th>Id</th>
+        <th>Text</th>
       </tr>
     </thead>
     <tbody>
-      {/* row 1 */}
-      <tr>
-        <th>1</th>
-        <td>Cy Ganderton</td>
-        <td>Quality Control Specialist</td>
-        <td>Blue</td>
+      {tasks.map((todos)=>(
+        
+      <tr key={todos.id}>
+        <td>{todos.id}</td>
+        <td>{todos.text}</td>
       </tr>
-      {/* row 2 */}
-      <tr>
-        <th>2</th>
-        <td>Hart Hagerty</td>
-        <td>Desktop Support Technician</td>
-        <td>Purple</td>
-      </tr>
-      {/* row 3 */}
-      <tr>
-        <th>3</th>
-        <td>Brice Swyre</td>
-        <td>Tax Accountant</td>
-        <td>Red</td>
-      </tr>
+      ))}
     </tbody>
   </table>
 </div>
