@@ -1,16 +1,21 @@
 "use client"
 import { FormEventHandler, useState } from "react"
 import Modal from "./Modal"
+import { addTodo } from "@/api"
 
 function AddTask() {
   const [modalOpen, setmodalOpen] = useState<boolean>(false)
   const [newTaskValue, setnewTaskValue] = useState<string>('')
 
-  const handleSubmitNewTodo: FormEventHandler<HTMLFormElement> = (e) => {
+  const handleSubmitNewTodo: FormEventHandler<HTMLFormElement> = async(e) => {
     e.preventDefault()
     console.log(newTaskValue);
+    await addTodo({
+      id:'3',
+      text:newTaskValue
+    })
     setnewTaskValue("")
-    
+    setmodalOpen(false)
   }
   return (
     <div>
