@@ -34,18 +34,18 @@ const Task: React.FC<TaskProps> = ({ task }) => {
         <tr key={task.id}>
             <td>{task.text}</td>
             <td><FaEdit onClick={() => setopenModalEdit(true)} /></td>
-            <Modal modalOpen={openModalEdit} setmodalOpen={setopenModalEdit}>
+            {openModalEdit && <Modal modalOpen={openModalEdit} setmodalOpen={setopenModalEdit}>
                 <form onSubmit={handleSubmitEditTodo}>
                     <h3>Add new Task</h3>
                     <input type="text" placeholder="Type here" value={taskToEdit} onChange={(e) => settaskToEdit(e.target.value)} className="input input-bordered w-full max-w-xs" />
                     <button type="submit" className="btn">Submit</button>
                 </form>
-            </Modal>
+            </Modal>}
             <td><FaRegTrashAlt onClick={() => setopenModalDeleted(true)}/></td>
-            <Modal modalOpen={openModalDeleted} setmodalOpen={setopenModalDeleted}>
+           {openModalDeleted &&  <Modal modalOpen={openModalDeleted} setmodalOpen={setopenModalDeleted}>
                 <h3>Are you sure you want to delete</h3>
                 <button className="btn" onClick={()=>handleDeleteTask(task.id)}>Yes</button>
-            </Modal>
+            </Modal>}
         </tr>
 
     )
