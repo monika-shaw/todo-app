@@ -1,6 +1,6 @@
 import { ITask } from "./types/tasks";
 
-const baseURL = `http://localhost:3001`;
+const baseURL = `https://todo-app-jca8.onrender.com`;
 
 export const getAllTodos = async (): Promise<ITask[]> => {
     const res = await fetch(`${baseURL}/tasks`, { cache: 'no-store' })
