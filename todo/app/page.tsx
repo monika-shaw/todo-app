@@ -8,9 +8,9 @@ export default async function Home() {
 
     return (
         <main className="text-center">
-            <h1 className="text-center underline">ToDo List App</h1>
-            <AddTask/>
-            <TodoList tasks = {tasks}/>
+            <h1 className="text-center text-4xl font-bold p-10">ToDo List App</h1>
+            <AddTask />
+            <TodoList tasks={tasks} />
         </main>
     );
 }

@@ -15,17 +15,17 @@ const Task: React.FC<TaskProps> = ({ task }) => {
     const [openModalEdit, setopenModalEdit] = useState<boolean>(false)
     const [openModalDeleted, setopenModalDeleted] = useState<boolean>(false)
     const [taskToEdit, settaskToEdit] = useState<string>(task.text)
-    const handleSubmitEditTodo : FormEventHandler<HTMLFormElement> = async (e) => {
+    const handleSubmitEditTodo: FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault()
         await editTodo({
             id: task.id,
             text: taskToEdit
-          })
+        })
         setopenModalEdit(false)
         router.refresh()
     }
 
-    const handleDeleteTask = async(id:string) => {
+    const handleDeleteTask = async (id: string) => {
         await deleteTodo(id)
         setopenModalDeleted(false)
         router.refresh()
@@ -33,18 +33,20 @@ const Task: React.FC<TaskProps> = ({ task }) => {
     return (
         <tr key={task.id}>
             <td>{task.text}</td>
-            <td><FaEdit onClick={() => setopenModalEdit(true)} /></td>
+            <td className="flex justify-evenly"><FaEdit onClick={() => setopenModalEdit(true)} />
+                <FaRegTrashAlt onClick={() => setopenModalDeleted(true)} /></td>
             {openModalEdit && <Modal modalOpen={openModalEdit} setmodalOpen={setopenModalEdit}>
                 <form onSubmit={handleSubmitEditTodo}>
-                    <h3>Add new Task</h3>
+                    <h3 className=" text-start pl-6 font-bold pb-5">Edit current Task</h3>
                     <input type="text" placeholder="Type here" value={taskToEdit} onChange={(e) => settaskToEdit(e.target.value)} className="input input-bordered w-full max-w-xs" />
-                    <button type="submit" className="btn">Submit</button>
+                    <span className=" pl-5">
+                        <button type="submit" className="btn btn-success">Submit</button>
+                    </span>
                 </form>
             </Modal>}
-            <td><FaRegTrashAlt onClick={() => setopenModalDeleted(true)}/></td>
-           {openModalDeleted &&  <Modal modalOpen={openModalDeleted} setmodalOpen={setopenModalDeleted}>
-                <h3>Are you sure you want to delete</h3>
-                <button className="btn" onClick={()=>handleDeleteTask(task.id)}>Yes</button>
+            {openModalDeleted && <Modal modalOpen={openModalDeleted} setmodalOpen={setopenModalDeleted}>
+                <h3 className="pb-5">Are you sure you want to delete ? </h3>
+                <button className="btn btn-error" onClick={() => handleDeleteTask(task.id)}>Yes</button>
             </Modal>}
         </tr>
 

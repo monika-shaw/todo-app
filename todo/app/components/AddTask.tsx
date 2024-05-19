@@ -12,7 +12,6 @@ function AddTask() {
 
   const handleSubmitNewTodo: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault()
-    console.log(newTaskValue);
     await addTodo({
       id: uuidv4(),
       text: newTaskValue
@@ -23,12 +22,14 @@ function AddTask() {
   }
   return (
     <div>
-      <button className="btn btn-primary w-full" onClick={() => setmodalOpen(true)}>Add Task</button>
+      <button className="btn btn-accent w-96" onClick={() => setmodalOpen(true)}>Add Task</button>
       <Modal modalOpen={modalOpen} setmodalOpen={setmodalOpen}>
         <form onSubmit={handleSubmitNewTodo}>
-          <h3>Add new Task</h3>
+          <h3 className=" text-start pl-6 font-bold pb-5">Add new Task</h3>
           <input type="text" placeholder="Type here" value={newTaskValue} onChange={(e) => setnewTaskValue(e.target.value)} className="input input-bordered w-full max-w-xs" />
-          <button type="submit" className="btn">Submit</button>
+          <span className=" pl-5">
+            <button type="submit" className="btn btn-success" disabled={newTaskValue === ""}>Submit</button>
+          </span>
         </form>
       </Modal>
     </div>
