@@ -9,14 +9,26 @@ export const getAllTodos = async (): Promise<ITask[]> => {
 
 }
 
-export const addTodo = async (todo:ITask):Promise<ITask> =>{
-    const res = await fetch(`${baseURL}/tasks`,{
-        method:'Post',
-        headers:{
-            'Content-Type':'application/json'
+export const addTodo = async (todo: ITask): Promise<ITask> => {
+    const res = await fetch(`${baseURL}/tasks`, {
+        method: 'Post',
+        headers: {
+            'Content-Type': 'application/json'
         },
-        body:JSON.stringify(todo)
+        body: JSON.stringify(todo)
     })
     const newTodo = await res.json()
-    return newTodo    
+    return newTodo
+}
+
+export const editTodo = async (todo: ITask): Promise<ITask> => {
+    const res = await fetch(`${baseURL}/tasks/${todo.id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(todo)
+    })
+    const updatedTodo = await res.json()
+    return updatedTodo
 }
