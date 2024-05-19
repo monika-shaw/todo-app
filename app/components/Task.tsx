@@ -5,7 +5,7 @@ import { FaEdit } from "react-icons/fa";
 import { FaRegTrashAlt } from "react-icons/fa";
 import Modal from "./Modal";
 import { useRouter } from "next/navigation";
-import { editTodo } from "@/api";
+import { deleteTodo, editTodo } from "@/api";
 
 interface TaskProps {
     task: ITask
@@ -21,8 +21,13 @@ const Task: React.FC<TaskProps> = ({ task }) => {
             id: task.id,
             text: taskToEdit
           })
-        settaskToEdit("")
         setopenModalEdit(false)
+        router.refresh()
+    }
+
+    const handleDeleteTask = async(id:string) => {
+        await deleteTodo(id)
+        setopenModalDeleted(false)
         router.refresh()
     }
     return (
@@ -36,7 +41,11 @@ const Task: React.FC<TaskProps> = ({ task }) => {
                     <button type="submit" className="btn">Submit</button>
                 </form>
             </Modal>
-            <td><FaRegTrashAlt /></td>
+            <td><FaRegTrashAlt onClick={() => setopenModalDeleted(true)}/></td>
+            <Modal modalOpen={openModalDeleted} setmodalOpen={setopenModalDeleted}>
+                <h3>Are you sure you want to delete</h3>
+                <button className="btn" onClick={()=>handleDeleteTask(task.id)}>Yes</button>
+            </Modal>
         </tr>
 
     )
